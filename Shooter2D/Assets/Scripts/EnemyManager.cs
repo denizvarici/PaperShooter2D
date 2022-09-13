@@ -4,32 +4,43 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    #region  EnemyFlashAfterHitVariables
+    #region  EnemyAfterHitVariables
     private SpriteRenderer enemySpriteRenderer;
     private Material originalMaterial;
     private Coroutine flashRoutine;
+    [SerializeField] private Material flashMaterial;
+    [SerializeField] private float flashDuration;
 
-
-    [SerializeField]private Material flashMaterial;
-    [SerializeField]private float flashDuration;
-    #endregion
     [SerializeField] private GameObject bloodEffect;
+
+    #endregion
+
+
+    //Enemy Components
+    private Rigidbody2D enemyRigidbody;
+    [SerializeField] private float enemyRecoilSpeed;
+    private GameObject playerObject;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float enemyMoveSpeed;
 
 
     void Start()
     {
         enemySpriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = enemySpriteRenderer.material;
-    }
-
-    
-    void Update()
-    {
+        enemyRigidbody = GetComponent<Rigidbody2D>();
+        playerObject = GameObject.FindGameObjectWithTag("Player");
         
     }
 
+    
+    void FixedUpdate()
+    {
+        TargetAndMove();      
+    }
 
-    #region EnemyFlashAfterHit
+
+    #region EnemyAfterHit
     private IEnumerator FlashRoutine()
     {
         enemySpriteRenderer.material = flashMaterial;
@@ -49,11 +60,36 @@ public class EnemyManager : MonoBehaviour
 
         flashRoutine = StartCoroutine(FlashRoutine());
     }
-    #endregion
 
     public void BloodSpread()
     {
         Instantiate(bloodEffect, transform.position, Quaternion.identity);
     }
+
+    public void EnemyRecoil(Vector2 forceDirection)
+    {
+        enemyRigidbody.AddForce(forceDirection * enemyRecoilSpeed);
+    }
+    #endregion
+
+
+
+    void TargetAndMove()
+    {
+        //Rotate
+        var playerObj = playerObject.transform;
+        var thisObj = transform;
+
+        var direction = (playerObj.position - thisObj.position).normalized;
+
+        thisObj.right = Vector3.Slerp(thisObj.right, direction, rotationSpeed);
+
+        //Move
+        enemyRigidbody.velocity = thisObj.right * enemyMoveSpeed * Time.fixedDeltaTime;
+    }
+
+    
+
+   
 
 }

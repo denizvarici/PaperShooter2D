@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
+    private Rigidbody2D bulletRigidBody;
     // Start is called before the first frame update
     void Start()
     {
+        bulletRigidBody = GetComponent<Rigidbody2D>();
         FindObjectOfType<AudioManager>().Play("PlayerShoot");
         Destroy(this.gameObject, 5f);
     }
@@ -23,6 +25,9 @@ public class BulletManager : MonoBehaviour
         {
             collision.GetComponent<EnemyManager>().Flash();
             collision.GetComponent<EnemyManager>().BloodSpread();
+            Vector2 forceEnemyDirection = bulletRigidBody.velocity;
+            collision.GetComponent<EnemyManager>().EnemyRecoil(forceEnemyDirection);
+            
             Destroy(this.gameObject);
         }
     }
