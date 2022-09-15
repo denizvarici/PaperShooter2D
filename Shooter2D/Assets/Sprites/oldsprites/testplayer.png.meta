@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 927b77a5a2e87644bad2a3ada043c07e
+guid: 6a389ed499bbdf64ba138c75d3b5ba42
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,55 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: backgroundTile_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2384f125424b8d4e8be190e64aeb388
-      internalID: -203904023
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: backgroundTile_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75e590e63d4a25c4c9a100af6a3cebdc
-      internalID: -1101701422
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: backgroundTile_2
+      name: testplayer_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 79
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bcdcf08efb0728469ddbdc643f9f002
-      internalID: 2116468481
+      spriteID: 786f1064597846d43bf8d0eb960e46b6
+      internalID: 674699752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: backgroundTile_3
+      name: testplayer_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
+        x: 82
+        y: 28
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,8 +151,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a589a0d1e7c0dc948ba682d5f0a1456f
-      internalID: 1929716091
+      spriteID: c2f2f9081c0e19f4cbbc6ef4a3a21432
+      internalID: 72286491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testplayer_2
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 28
+        width: 57
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 538934e747099f44abaeba6d066d75bf
+      internalID: 1888967327
       vertices: []
       indices: 
       edges: []
@@ -210,10 +189,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      backgroundTile_3: 1929716091
-      backgroundTile_0: -203904023
-      backgroundTile_1: -1101701422
-      backgroundTile_2: 2116468481
+      testplayer_0: 674699752
+      testplayer_1: 72286491
+      testplayer_2: 1888967327
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

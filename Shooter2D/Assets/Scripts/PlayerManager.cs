@@ -11,21 +11,40 @@ public class PlayerManager : MonoBehaviour
     InputAction moveInput;
     InputAction shootInput;
 
+
     //Player Components
     private Rigidbody2D playerRigidbody;
     private Animator gunAnimator;
 
     //Player features
     [SerializeField] private float playerSpeed;
+    [SerializeField] private float playerNormalSpeed;
+    [SerializeField] private float playerSlowSpeed;
+    [SerializeField] private float playerFastSpeed;
 
-
+    //SHOOOOOOTTTTT
     //Shoot System
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform bulletWayTransform;
     [SerializeField] private float bulletSpeed;
-    
 
-    
+    //Hold to shoot System
+    [SerializeField] private GameObject longBulletPrefab;
+    [SerializeField] private float longBulletSpeed;
+    [SerializeField] private float holdTimer;
+    [SerializeField] private float holdBaseTimer;
+
+    //WeaponSystem
+    [SerializeField] private GameObject[] weapons;
+    private int currentWeapon;
+
+
+    //PLAYER ANGLE
+    [HideInInspector]
+    public float playerAngle;
+
+
+
 
 
     private void Awake()
@@ -38,36 +57,94 @@ public class PlayerManager : MonoBehaviour
         moveInput.Enable();
         shootInput = inputManager.Player.Shoot;
         shootInput.Enable();
-        shootInput.performed += Shoot;
+        //shootInput.performed += OneShoot;
+
     }
     private void OnDisable()
     {
         moveInput.Disable();
         shootInput.Disable();
+
     }
 
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         gunAnimator = GetComponentInChildren<Animator>();
+        holdTimer = holdBaseTimer;
+        ChangeWeapon();
     }
-   
+
     void Update()
     {
-        
+        SwitchWeapon();
+        PlayerShooting();
+        LookMouse();
     }
 
     private void FixedUpdate()
     {
         Move();
-        LookMouse();
+        
     }
+    bool hold = false;
+
+    void PlayerShooting()
+    {
+        
+        if (shootInput.WasPressedThisFrame())
+        {
+            
+            if (currentWeapon == 0)
+            {
+                hold = false;
+                GameObject bulletObject = Instantiate(bulletPrefab, bulletWayTransform.position, Quaternion.identity);
+                bulletObject.GetComponent<Rigidbody2D>().AddForce(bulletWayTransform.right * bulletSpeed, ForceMode2D.Impulse);
+
+            }
+        }
+        if (shootInput.IsPressed())
+        {
+            
+            if (currentWeapon == 1)
+            {
+                hold = true;
+                Debug.Log("Ateþ ediliyor.");
+                playerSpeed = playerSlowSpeed;
+                holdTimer -= Time.deltaTime;
+                if (holdTimer <= 0)
+                {
+
+                    GameObject bulletObject = Instantiate(longBulletPrefab, bulletWayTransform.position, Quaternion.Euler(0, 0, playerAngle));
+                    bulletObject.GetComponent<Rigidbody2D>().AddForce(bulletWayTransform.right * longBulletSpeed, ForceMode2D.Impulse);
+                    holdTimer = holdBaseTimer;
+
+                }
+            }
+        }
+        if (shootInput.WasReleasedThisFrame())
+        {
+            if (hold)
+            {
+                Debug.Log("Ateþ Býrakýldý!");
+                playerSpeed = playerNormalSpeed;
+                hold = false;
+            }
+            
+        }
+
+
+
+    }
+
     #region Move,LookMouse,Shoot
     void Move()
     {
         Vector2 direction = moveInput.ReadValue<Vector2>();
         playerRigidbody.velocity = direction * playerSpeed;
     }
+
+
 
     void LookMouse()
     {
@@ -78,15 +155,37 @@ public class PlayerManager : MonoBehaviour
         mousePosition.y -= objectPosition.y;
 
         float angle = Mathf.Atan2(mousePosition.y, mousePosition.x) * Mathf.Rad2Deg;
+        playerAngle = angle;
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
-
-    void Shoot(InputAction.CallbackContext context)
-    {
-        GameObject bulletObject = Instantiate(bulletPrefab, bulletWayTransform.position, Quaternion.identity);
-        bulletObject.GetComponent<Rigidbody2D>().AddForce(bulletWayTransform.right * bulletSpeed,ForceMode2D.Impulse);
-        gunAnimator.SetTrigger("Shoot");
-    }
     #endregion
+
+    void SwitchWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {            
+            ChangeWeapon(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {            
+            ChangeWeapon(1);
+        }
+    }
+
+    void ChangeWeapon(int currentWeaponIndex = 0)
+    {
+        currentWeapon = currentWeaponIndex;
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (i == currentWeapon)
+            {
+                weapons[i].SetActive(true);
+            }
+            else
+            {
+                weapons[i].SetActive(false);
+            }
+        }
+    }
 }

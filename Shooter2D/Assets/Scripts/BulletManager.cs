@@ -5,12 +5,14 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     private Rigidbody2D bulletRigidBody;
+    [SerializeField]
+    private GameObject bulletDestroyEffect;
     // Start is called before the first frame update
     void Start()
     {
         bulletRigidBody = GetComponent<Rigidbody2D>();
-        FindObjectOfType<AudioManager>().Play("PlayerShoot");
-        Destroy(this.gameObject, 5f);
+        //FindObjectOfType<AudioManager>().Play("PlayerShoot");
+        //Destroy(this.gameObject, 5f);
     }
 
     // Update is called once per frame
@@ -22,13 +24,21 @@ public class BulletManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy")
-        {
-            collision.GetComponent<EnemyManager>().Flash();
-            collision.GetComponent<EnemyManager>().BloodSpread();
-            Vector2 forceEnemyDirection = bulletRigidBody.velocity;
-            collision.GetComponent<EnemyManager>().EnemyRecoil(forceEnemyDirection);
-            
-            Destroy(this.gameObject);
+        {                       
+            collision.GetComponent<EnemyManager>().EnemyRecoil(bulletRigidBody.velocity);
+
+            DestroyBullet();
         }
+        if (collision.tag == "Wall")
+        {
+            DestroyBullet();
+        }
+    }
+
+
+    private void DestroyBullet()
+    {
+        Instantiate(bulletDestroyEffect, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 }

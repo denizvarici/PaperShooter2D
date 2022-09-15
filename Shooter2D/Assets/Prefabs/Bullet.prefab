@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8ba6709e4bd7b00408ee259f786d05b9, type: 3}
+  m_Sprite: {fileID: -969179943, guid: 87d0130b9c1f1a44eaee108327e39466, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.125, y: 0.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dd515570e15db4ba3dbcd278dfe149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletDestroyEffect: {fileID: 2063029347253347337, guid: 0fe6ff3c6d7469444abdc92df0d32860, type: 3}
 --- !u!96 &1205183182
 TrailRenderer:
   serializedVersion: 2
