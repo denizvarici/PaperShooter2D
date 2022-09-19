@@ -175,7 +175,7 @@ MonoBehaviour:
   playerOffset_X: 2.5
   playerOffset_Y: 2.5
   playerTransform: {fileID: 1813508250}
-  enemyNumberOnScene: 100
+  enemyNumberOnScene: 50
   coinNumberOnScene: 2
   coinPrefab: {fileID: 1804540452876423615, guid: 9ea777d046990ee4db28012763f19e1a, type: 3}
 --- !u!1 &519420028
@@ -14452,12 +14452,12 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1813508252
 BoxCollider2D:
@@ -14472,7 +14472,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.26456115, y: -0.008065909}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -14483,7 +14483,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.69027, y: 0.7644761}
   m_EdgeRadius: 0
 --- !u!114 &1813508253
 MonoBehaviour:
@@ -14511,6 +14511,8 @@ MonoBehaviour:
   weapons:
   - {fileID: 1971938371}
   - {fileID: 1750314693}
+  grenadePrefab: {fileID: 5577119738535614017, guid: 9778b8aaf10b9b148b85550af93dd4bb, type: 3}
+  throwSpeed: 5
   playerAngle: 0
   coinAmount: 0
 --- !u!1 &1817808596

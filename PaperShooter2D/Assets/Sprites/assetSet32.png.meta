@@ -262,6 +262,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: assetSet32_7
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 13
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af65f26a17a02bf48a55c7208d17f9c5
+      internalID: 225974491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assetSet32_8
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 15
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b771752b7054104586196da67b5b36b
+      internalID: 159154092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -274,9 +316,11 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       assetSet32_2: 1108354257
+      assetSet32_7: 225974491
       assetSet32_1: -969179943
       assetSet32_4: -713350887
       assetSet32_5: -973847875
+      assetSet32_8: 159154092
       assetSet32_6: 42718760
       assetSet32_0: -663797043
       assetSet32_3: -1704383389

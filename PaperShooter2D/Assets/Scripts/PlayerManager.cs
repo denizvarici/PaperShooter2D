@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     InputManager inputManager;
     InputAction moveInput;
     InputAction shootInput;
+    InputAction bombInput;
 
 
     //Player Components
@@ -37,6 +38,9 @@ public class PlayerManager : MonoBehaviour
     //WeaponSystem
     [SerializeField] private GameObject[] weapons;
     private int currentWeapon;
+    //grenade system
+    [SerializeField] private GameObject grenadePrefab;
+    [SerializeField] private float throwSpeed;
 
 
     //PLAYER ANGLE
@@ -62,6 +66,8 @@ public class PlayerManager : MonoBehaviour
         moveInput.Enable();
         shootInput = inputManager.Player.Shoot;
         shootInput.Enable();
+        bombInput = inputManager.Player.Bomb;
+        bombInput.Enable();
         
 
     }
@@ -69,7 +75,7 @@ public class PlayerManager : MonoBehaviour
     {
         moveInput.Disable();
         shootInput.Disable();
-
+        bombInput.Disable();
     }
 
     void Start()
@@ -85,6 +91,7 @@ public class PlayerManager : MonoBehaviour
         SwitchWeapon();
         PlayerShooting();
         LookMouse();
+        ThrowBomb();
     }
 
     private void FixedUpdate()
@@ -92,6 +99,20 @@ public class PlayerManager : MonoBehaviour
         Move();
         
     }
+
+    void ThrowBomb()
+    {
+        if (bombInput.WasPressedThisFrame())
+        {
+            Debug.Log("Bomba atýldý!");
+            GameObject bombObject = Instantiate(grenadePrefab, transform.position, Quaternion.identity);
+            bombObject.GetComponent<Rigidbody2D>().AddForce(bulletWayTransform.right * throwSpeed, ForceMode2D.Impulse);
+        }
+    }
+
+
+
+
     bool holdMode = false;
     bool oneMode = false;
 
@@ -118,7 +139,7 @@ public class PlayerManager : MonoBehaviour
             {
                 holdMode = true;
                 oneMode = false;
-                Debug.Log("Ateþ ediliyor.");
+                
                 playerSpeed = playerSlowSpeed;
                 holdTimer -= Time.deltaTime;
                 if (holdTimer <= 0)
@@ -225,5 +246,10 @@ public class PlayerManager : MonoBehaviour
     {
         coinAmount += coinNumberToAdd;
         Debug.Log("Current Coin:" + coinAmount);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        playerRigidbody.velocity = Vector2.zero;
     }
 }
