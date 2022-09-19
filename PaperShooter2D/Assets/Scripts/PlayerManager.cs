@@ -43,6 +43,11 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector]
     public float playerAngle;
 
+    //COÝN SYSTEM
+
+    [SerializeField]
+    private int coinAmount;
+
 
 
 
@@ -57,7 +62,7 @@ public class PlayerManager : MonoBehaviour
         moveInput.Enable();
         shootInput = inputManager.Player.Shoot;
         shootInput.Enable();
-        //shootInput.performed += OneShoot;
+        
 
     }
     private void OnDisable()
@@ -87,17 +92,20 @@ public class PlayerManager : MonoBehaviour
         Move();
         
     }
-    bool hold = false;
+    bool holdMode = false;
+    bool oneMode = false;
 
     void PlayerShooting()
     {
         
         if (shootInput.WasPressedThisFrame())
         {
-            
+
             if (currentWeapon == 0)
             {
-                hold = false;
+                holdMode = false;
+                oneMode = true;
+                playerSpeed = 1f;
                 GameObject bulletObject = Instantiate(bulletPrefab, bulletWayTransform.position, Quaternion.identity);
                 bulletObject.GetComponent<Rigidbody2D>().AddForce(bulletWayTransform.right * bulletSpeed, ForceMode2D.Impulse);
 
@@ -108,7 +116,8 @@ public class PlayerManager : MonoBehaviour
             
             if (currentWeapon == 1)
             {
-                hold = true;
+                holdMode = true;
+                oneMode = false;
                 Debug.Log("Ateþ ediliyor.");
                 playerSpeed = playerSlowSpeed;
                 holdTimer -= Time.deltaTime;
@@ -121,14 +130,29 @@ public class PlayerManager : MonoBehaviour
 
                 }
             }
+            //if (currentWeapon == 0)
+            //{
+            //    holdMode = false;
+            //    oneMode = true;
+            //    playerSpeed = 1f;
+            //    GameObject bulletObject = Instantiate(bulletPrefab, bulletWayTransform.position, Quaternion.identity);
+            //    bulletObject.GetComponent<Rigidbody2D>().AddForce(bulletWayTransform.right * bulletSpeed, ForceMode2D.Impulse);
+
+            //}
         }
         if (shootInput.WasReleasedThisFrame())
         {
-            if (hold)
+            if (holdMode)
             {
-                Debug.Log("Ateþ Býrakýldý!");
+                
                 playerSpeed = playerNormalSpeed;
-                hold = false;
+                holdMode = false;
+            }
+            if (oneMode)
+            {
+
+                playerSpeed = playerNormalSpeed;
+                oneMode = false;
             }
             
         }
@@ -163,13 +187,21 @@ public class PlayerManager : MonoBehaviour
 
     void SwitchWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {            
-            ChangeWeapon(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {            
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{            
+        //    ChangeWeapon(0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{            
+        //    ChangeWeapon(1);
+        //}
+        if (playerRigidbody.velocity != Vector2.zero)
+        {
             ChangeWeapon(1);
+        }
+        else
+        {
+            ChangeWeapon(0);
         }
     }
 
@@ -187,5 +219,11 @@ public class PlayerManager : MonoBehaviour
                 weapons[i].SetActive(false);
             }
         }
+    }
+
+    public void AddCoin(int coinNumberToAdd)
+    {
+        coinAmount += coinNumberToAdd;
+        Debug.Log("Current Coin:" + coinAmount);
     }
 }

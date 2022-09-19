@@ -7,6 +7,9 @@ public class BulletManager : MonoBehaviour
     private Rigidbody2D bulletRigidBody;
     [SerializeField]
     private GameObject bulletDestroyEffect;
+
+    [SerializeField]
+    private int bulletDamage;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +29,7 @@ public class BulletManager : MonoBehaviour
         if (collision.tag == "Enemy")
         {                       
             collision.GetComponent<EnemyManager>().EnemyRecoil(bulletRigidBody.velocity);
-
+            collision.GetComponent<EnemyManager>().TakeDamage(bulletDamage);
             DestroyBullet();
         }
         if (collision.tag == "Wall")

@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDestroyEffect: {fileID: 2063029347253347337, guid: 0fe6ff3c6d7469444abdc92df0d32860, type: 3}
+  bulletDamage: 2
 --- !u!96 &1205183182
 TrailRenderer:
   serializedVersion: 2
